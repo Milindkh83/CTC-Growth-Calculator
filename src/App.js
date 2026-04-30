@@ -6,6 +6,7 @@ export default function App() {
   const [deduction, setDeduction] = useState(10);
   const [currentInHand, setCurrentInHand] = useState("");
   const [hike, setHike] = useState("");
+  const [deductionAmount, setDeductionAmount] = useState(0);
 
   const [appraisal, setAppraisal] = useState(0);
   const [monthlyInHand, setMonthlyInHand] = useState(0);
@@ -14,6 +15,7 @@ export default function App() {
     setAppraisal(0);
     setMonthlyInHand(0);
     setFinalCTC(0);
+    setDeductionAmount(0);
   };
   useEffect(() => {
     const curr = Number(currentCTC);
@@ -51,6 +53,9 @@ export default function App() {
 
     const monthlyGross = newCTC / 12;
     const inHand = monthlyGross * (1 - finalDeduction / 100);
+
+    const deductionAmount = monthlyGross - inHand;
+    setDeductionAmount(Math.round(deductionAmount));
 
     setAppraisal(appraisalVal.toFixed(2));
     setMonthlyInHand(Math.round(inHand));
@@ -104,6 +109,11 @@ export default function App() {
               title="Monthly In-Hand"
               value={`₹ ${monthlyInHand.toLocaleString()}`}
               color="indigo"
+            />
+            <Card
+              title="Monthly Deduction"
+              value={`₹ ${deductionAmount.toLocaleString()}`}
+              color="red"
             />
 
           </div>
