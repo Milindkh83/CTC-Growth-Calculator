@@ -11,16 +11,15 @@ export default function App() {
 
   useEffect(() => {
     if (!currentCTC || !offeredCTC) return;
-
-    const appraisalVal =
-      ((offeredCTC - currentCTC) / currentCTC) * 100;
-
     let newCTC = offeredCTC;
     // If hike % is given, calculate offered CTC
     if (hike) {
       newCTC = currentCTC * (1 + hike / 100);
     }
+    if (!newCTC) return;
 
+    const appraisalVal =
+      ((newCTC - currentCTC) / currentCTC) * 100;
     let finalDeduction = deduction;
 
     if (currentInHand) {
