@@ -150,6 +150,7 @@ function Card({ title, value, color }) {
     blue: "from-blue-400/20 to-indigo-500/20 border-blue-400/30 text-blue-400",
     green: "from-green-400/20 to-emerald-500/20 border-green-400/30 text-green-400",
     indigo: "from-indigo-400/20 to-purple-500/20 border-indigo-400/30 text-indigo-400",
+    red: "from-red-400/20 to-rose-500/20 border-red-400/30 text-red-400",
   };
 
   return (
