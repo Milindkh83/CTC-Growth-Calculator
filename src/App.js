@@ -10,30 +10,37 @@ export default function App() {
   const [appraisal, setAppraisal] = useState(0);
   const [monthlyInHand, setMonthlyInHand] = useState(0);
   const [finalCTC, setFinalCTC] = useState(0);
-
+  const resetValues = () => {
+    setAppraisal(0);
+    setMonthlyInHand(0);
+    setFinalCTC(0);
+  };
   useEffect(() => {
     const curr = Number(currentCTC);
     const off = Number(offeredCTC);
     const hikeVal = Number(hike);
     const currInHandVal = Number(currentInHand);
 
-    if (!curr) return;
+    // ❌ If no current CTC → reset everything
+    if (!curr) {
+      resetValues();
+      return;
+    }
 
     let newCTC = 0;
 
-    // Priority: Hike % > Offered CTC
     if (hikeVal) {
       newCTC = curr * (1 + hikeVal / 100);
     } else if (off) {
       newCTC = off;
     } else {
-      return;
-    }
+    // ❌ No hike + no offered → reset
+    resetValues();
+    return;
+  }
 
-    // Appraisal %
     const appraisalVal = ((newCTC - curr) / curr) * 100;
 
-    // Deduction
     let finalDeduction = Number(deduction);
 
     if (currInHandVal) {
@@ -42,15 +49,14 @@ export default function App() {
         ((currentMonthly - currInHandVal) / currentMonthly) * 100;
     }
 
-    // Monthly In-Hand
     const monthlyGross = newCTC / 12;
     const inHand = monthlyGross * (1 - finalDeduction / 100);
 
     setAppraisal(appraisalVal.toFixed(2));
     setMonthlyInHand(Math.round(inHand));
     setFinalCTC(Math.round(newCTC));
-  }, [currentCTC, offeredCTC, deduction, currentInHand, hike]);
 
+  }, [currentCTC, offeredCTC, deduction, currentInHand, hike]);
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617] flex items-center justify-center p-4">
       <div className="w-full max-w-3xl">
