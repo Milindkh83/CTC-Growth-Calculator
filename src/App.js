@@ -5,7 +5,7 @@ export default function App() {
   const [offeredCTC, setOfferedCTC] = useState(null);
   const [deduction, setDeduction] = useState(10);
   const [currentInHand, setCurrentInHand] = useState("");
-
+  const [hike, setHike] = useState("");
   const [appraisal, setAppraisal] = useState(0);
   const [monthlyInHand, setMonthlyInHand] = useState(0);
 
@@ -14,6 +14,12 @@ export default function App() {
 
     const appraisalVal =
       ((offeredCTC - currentCTC) / currentCTC) * 100;
+
+    let newCTC = offeredCTC;
+    // If hike % is given, calculate offered CTC
+    if (hike) {
+      newCTC = currentCTC * (1 + hike / 100);
+    }
 
     let finalDeduction = deduction;
 
@@ -63,7 +69,11 @@ export default function App() {
               value={deduction}
               onChange={setDeduction}
             />
-
+            <Input
+              label="Hike % (optional)"
+              value={hike}
+              onChange={setHike}
+            />
             <Input
               label="Current In-Hand (optional)"
               value={currentInHand}
