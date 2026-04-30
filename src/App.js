@@ -33,7 +33,7 @@ export default function App() {
 
     setAppraisal(appraisalVal.toFixed(2));
     setMonthlyInHand(Math.round(inHand));
-  }, [currentCTC, offeredCTC, deduction, currentInHand]);
+  }, [currentCTC, offeredCTC, deduction, currentInHand, hike]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617] flex items-center justify-center p-4">
